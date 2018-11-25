@@ -40,16 +40,16 @@ window.renderStatistics = function(ctx, players, times) {
     ctx.fillStyle = '#000';
     ctx.fillText(players[i], CLOUD_X + GAP_WIDTH + (GAP_WIDTH + BAR_WIDTH) * i, NAME_Y);
 
-    ctx.fillText(Math.round(times[i]), CLOUD_X + GAP_WIDTH + (GAP_WIDTH + BAR_WIDTH) * i, CLOUD_Y * 9 -5);
+    ctx.fillText(Math.round(times[i]), CLOUD_X + GAP_WIDTH + (GAP_WIDTH + BAR_WIDTH) * i, CLOUD_HEIGHT - 3*GAP_HEIGHT- BAR_HEIGHT * times[i] / maxTime - 5);
 
     if (players[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-      ctx.fillRect(CLOUD_X + GAP_WIDTH + (GAP_WIDTH + BAR_WIDTH) * i, CLOUD_Y * 9, BAR_WIDTH, BAR_HEIGHT * times[i] / maxTime);
+      ctx.fillRect(CLOUD_X + GAP_WIDTH + (GAP_WIDTH + BAR_WIDTH) * i, CLOUD_HEIGHT - 3*GAP_HEIGHT, BAR_WIDTH,- BAR_HEIGHT * times[i] / maxTime);
     }
     else {
       ctx.fillStyle = 'blue';
     }
-    ctx.fillRect(CLOUD_X + GAP_WIDTH + (GAP_WIDTH + BAR_WIDTH) * i, CLOUD_Y * 9, BAR_WIDTH, BAR_HEIGHT * times[i] / maxTime);
+    ctx.fillRect(CLOUD_X + GAP_WIDTH + (GAP_WIDTH + BAR_WIDTH) * i, CLOUD_HEIGHT - 3*GAP_HEIGHT, BAR_WIDTH, - BAR_HEIGHT * times[i] / maxTime);
   }
 }
 
