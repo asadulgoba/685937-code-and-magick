@@ -48,7 +48,8 @@ window.renderStatistics = function (ctx, players, times) {
     if (players[i] === YOU_PLAYER) {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     } else {
-      ctx.fillStyle = 'blue';
+      var saturation = Math.random() * 100 | 0;
+      ctx.fillStyle = 'hsl(240, ' + saturation.toString() + '%, 40%)';
     }
 
     var barX = CLOUD_X + GAP_WIDTH + (GAP_WIDTH + BAR_WIDTH) * i;
