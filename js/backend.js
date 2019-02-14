@@ -1,49 +1,53 @@
 'use strict';
 
-(function(){
-  var URL1 ='https://js.dump.academy/code-and-magick';
-  var URL2 ='https://js.dump.academy/code-and-magick/data';
+(function () {
+  var URL1 = 'https://js.dump.academy/code-and-magick';
+  var URL2 = 'https://js.dump.academy/code-and-magick/data';
 
- window.backend = {
-  save : (function (data, onSuccess) {
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
+  window.backend = {
 
-    xhr.addEventListener('load', function () {
-      onSuccess(xhr.response);
-    });
+    save: (function (data, onLoad, onError) {
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = 'json';
 
-    xhr.open('POST' , URL1);
-    xhr.send(data);
-  }),
+      xhr.addEventListener('load', function () {
+        if (xhr.status === 200) {
+          onLoad(xhr.response);
+        } else {
+          onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        }
+      });
 
-  load : (function (onSuccess, onError) {
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
+      xhr.open('POST', URL1);
+      xhr.send(data);
 
-    xhr.open('GET', URL2);
+    }),
 
-    xhr.addEventListener('load', function () {
+    load: (function (onLoad, onError) {
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = 'json';
 
-      if (xhr.status === 200) {
-        onSuccess(xhr.response);
-      } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
-      }
-    });
+      xhr.addEventListener('load', function () {
 
-    xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения');
-    });
-    xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-    });
+        if (xhr.status === 200) {
+          onLoad(xhr.response);
+          // console.log(xhr)
+        } else {
+          onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        }
+      });
 
-    xhr.timeout = 10000; // 10s
+      xhr.addEventListener('error', function () {
+        onError('Произошла ошибка соединения');
+      });
+      xhr.addEventListener('timeout', function () {
+        onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+      });
 
-    xhr.open('GET', URL2);
-    xhr.send();
-  })
- }
+      xhr.timeout = 3000; // 10s
 
+      xhr.open('GET', URL2);
+      xhr.send();
+    })
+  };
 })();
