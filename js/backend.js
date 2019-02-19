@@ -31,7 +31,6 @@
 
         if (xhr.status === 200) {
           onLoad(xhr.response);
-          // console.log(xhr)
         } else {
           onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
         }

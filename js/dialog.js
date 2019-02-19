@@ -26,8 +26,24 @@
     }
   };
 
+  var changeColorCoat = document.querySelector('.wizard .wizard-coat');
+  var shiftInitialColorCoat = function () {
+    var newColor = changeColorCoat.style.fill;
+    window.wizard.onCoatChange(newColor);
+  };
+
+
+  var changeColorEyes = document.querySelector('.setup-wizard .wizard-eyes');
+  var shiftInitialColorEyes = function () {
+    var newColor = changeColorEyes.style.fill;
+    window.wizard.onEyesChange(newColor);
+  };
+
+
   setupOpen.addEventListener('click', function () {
     openPopup();
+    window.setTimeout(shiftInitialColorCoat, 500);
+    window.setTimeout(shiftInitialColorEyes, 500);
   });
 
   setupOpen.addEventListener('keydown', function (evt) {

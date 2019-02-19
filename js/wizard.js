@@ -1,22 +1,31 @@
 'use strict';
 (function () {
 
+  window.wizard = {
+    onEyesChange: function () {},
+    onCoatChange: function () {}
+  };
+
   var changeColorCoat = document.querySelector('.wizard .wizard-coat');
   var chahgeColorCoatInput = document.querySelector('[name="coat-color"]');
 
-  changeColorCoat.addEventListener('click', function () {
-    var coatColor = window.getRandom(window.util.WIZARD_COAT_COLOR);
-    changeColorCoat.style.fill = coatColor;
-    chahgeColorCoatInput.value = coatColor;
-  });
+  var shiftColorCoat = function () {
+    var newColor = window.getRandom(window.util.WIZARD_COAT_COLOR);
+    changeColorCoat.style.fill = newColor;
+    chahgeColorCoatInput.value = newColor;
+    window.wizard.onCoatChange(newColor);
+  };
+
+  changeColorCoat.addEventListener('click', shiftColorCoat);
 
   var changeColorEyes = document.querySelector('.setup-wizard .wizard-eyes');
   var chahgeColorEyesInput = document.querySelector('[name="eyes-color"]');
 
   changeColorEyes.addEventListener('click', function () {
-    var eyesColor = window.getRandom(window.util.WIZARD_EYES_COLOR);
-    changeColorEyes.style.fill = eyesColor;
-    chahgeColorEyesInput.value = eyesColor;
+    var newColor = window.getRandom(window.util.WIZARD_EYES_COLOR);
+    changeColorEyes.style.fill = newColor;
+    chahgeColorEyesInput.value = newColor;
+    window.wizard.onEyesChange(newColor);
   });
 
   var changeColorFireball = document.querySelector('.setup-fireball-wrap');
